@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE artifacts SYSTEM "file_to_upload_in_verif_page.dtd">
+<artifacts>
+	<artifact>
+		<artifact_type artif_types="software"/>	
+		<artifact_publication_date>15-03-2024</artifact_publication_date>
+		<artifact_url>https://github.com/simula/SoccerSum</artifact_url>
+		<repository_url>https://github.com/simula/SoccerSum</repository_url>
+		<title>SoccerSum: Multimodal AI-Based Summarization and Storytelling for Soccer on Social Media</title>
+		<version>1.0</version>
+		<contributors>
+			<contrib>
+				<acm_author_profileid/>
+				<orcid_id>0009-0008-4616-4592</orcid_id>
+				<seq_no>1</seq_no>
+				<first_name>Mehdi</first_name>
+				<middle_name/>
+				<last_name>Houshmand Sarkhoosh</last_name>
+				<suffix/>
+				<affiliation>OsloMet, Forzasys</affiliation>
+				<role>author</role>
+				<bio>Mehdi is currently pursuing a Masters degree in Applied Computer and Information Technology at Oslo Metropolitan University, with a specialized research interest in the application of AI and technology in the field of sports. His academic journey is complemented by a strong foundation in Mathematics and mathematical modeling, which aids in their exploration of innovative solutions within the intersection of artificial intelligence and sports industry</bio>
+				<email_address>mehdihou@oslomet.no</email_address>
+			</contrib>
+			<contrib>
+				<acm_author_profileid/>
+				<orcid_id>0000-0001-9232-2661</orcid_id>
+				<seq_no>2</seq_no>
+				<first_name>Sushant</first_name>
+				<middle_name/>
+				<last_name>Gautam</last_name>
+				<suffix/>
+				<affiliation>SimulaMet, OsloMet</affiliation>
+				<role>author</role>
+				<bio/>
+				<email_address>sushant@simula.no</email_address>
+			</contrib>
+			<contrib>
+				<acm_author_profileid/>
+				<orcid_id>0000-0003-0991-4418</orcid_id>
+				<seq_no>3</seq_no>
+				<first_name>Cise</first_name>
+				<middle_name/>
+				<last_name>Midoglu</last_name>
+				<suffix/>
+				<affiliation>SimulaMet, Forzasys</affiliation>
+				<role>author</role>
+				<bio/>
+				<email_address>cise@simula.no</email_address>
+			</contrib>
+			<contrib>
+				<acm_author_profileid/>
+				<orcid_id>0000-0001-5348-8546</orcid_id>
+				<seq_no>4</seq_no>
+				<first_name>Saeed</first_name>
+				<middle_name/>
+				<last_name>Shafiee Sabet</last_name>
+				<suffix/>
+				<affiliation>Forzasys</affiliation>
+				<role>author</role>
+				<bio/>
+				<email_address>saeed@forzasys.com</email_address>
+			</contrib>
+			<contrib>
+				<acm_author_profileid/>
+				<orcid_id>0000-0003-2073-7029</orcid_id>
+				<seq_no>5</seq_no>
+				<first_name>Pål</first_name>
+				<middle_name/>
+				<last_name>Halvorsen</last_name>
+				<suffix/>
+				<affiliation>SimulaMet, OsloMet, Forzasys</affiliation>
+				<role>author</role>
+				<bio/>
+				<email_address>paalh@simula.no</email_address>
+			</contrib>
+		</contributors>
+		<description>The SoccerSum pipeline...</description>
+        <artifact_instructions>
+            <general_inst>
+                <software_dependencies> 
+                    Python (Version 3.11), Flask, re, torch, torchvision, ultralytics, cv2, numpy, requests, openai, whisper, librosa, sklearn.feature_extraction.text, sklearn.metrics.pairwise, matplotlib, mpl_toolkits.mplot3d
+                </software_dependencies>
+                <hardware_dependencies> 
+                    Tested on Linux-based systems. Requires at least 1 GPU with 4 GB VRAM for optimal performance.
+                </hardware_dependencies>
+                <installation>
+                    Clone the repository: git clone https://github.com/simula/SoccerSum
+                    Install dependencies: Navigate to the SoccerSum folder and run pip install -r requirements.txt
+                    Download and set up model weights: Download from https://huggingface.co/SimulaMet-HOST/SoccerSum and place in the weights folder.
+                </installation>
+                <other_instructions>
+                    Ensure that port 5000 on your machine is available for the Flask application. 
+                    OPENAI API Access Token is required for GPT-4 integration.
+                    Demonstration video can be found under: https://www.youtube.com/watch?v=za4VIi2ARXY
+                </other_instructions>
+            </general_inst>
+            <experimental_inst>
+                <installation>
+                    Standard installation through the provided GitHub repository and requirement files.
+                </installation>
+                <parameterization>
+                    File paths and API tokens need to be set as per user environment.
+                </parameterization>
+                <worksflow>
+                    Run the Flask application using python3 app.py and access the GUI in a web browser. Provide a Goal event file path (MP4 or M3U8 URL) for processing.
+                </worksflow>
+                <evaluation>
+                    SoccerSUM GUI processes a 30-second goal event clip in approximately 1 minute. Larger clips require additional time. System shows progress on the GUI sidebar.
+                </evaluation>
+            </experimental_inst>
+        </artifact_instructions>
+		<keywords>
+			<kw>AI</kw>
+			<kw>association football</kw>
+			<kw>audio</kw>
+			<kw>computer vision</kw>
+			<kw>GUI</kw>
+			<kw>LLM</kw>
+			<kw>multimedia modality</kw>
+			<kw>social media</kw>
+            <kw>summarization</kw>
+            <kw>text</kw>
+            <kw>video</kw>
+		</keywords>
+		<acm_ccs>
+			<concept>
+				<concept_id>10002951.10003227</concept_id>
+				<concept_desc>Information systems~Information systems applications</concept_desc>
+				<concept_significance>500</concept_significance>
+			</concept>
+			<concept>
+				<concept_id>10010147.10010257</concept_id>
+				<concept_desc>Computing methodologies~Machine learning</concept_desc>
+				<concept_significance>500</concept_significance>
+			</concept>
+		</acm_ccs>
+		<license> The SoccerSum repository is made available under the MIT license.</license>
+		<license_url>https://github.com/simula/SoccerSum/blob/main/LICENSE</license_url>
+		<publisher>
+			<publisher_id>PUB27</publisher_id>
+			<publisher_code>ACMNY</publisher_code>
+			<publisher_name>ACM</publisher_name>
+			<publisher_address/>
+			<publisher_city>New York</publisher_city>
+			<publisher_state>NY</publisher_state>
+			<publisher_country>USA</publisher_country>
+			<publisher_zip_code>10121</publisher_zip_code>
+			<publisher_contact>Bernard Rous</publisher_contact>
+			<publisher_phone>2128697440</publisher_phone>
+			<publisher_isbn_prefix>978</publisher_isbn_prefix>
+			<publisher_url>http://dl.acm.org</publisher_url>
+		</publisher>
+		<reproducibility>
+			<reproducible>
+				<reproducible_type reproducible_types="Results_Reproduced"/>
+				<official_date/>
+				<additional_text/>
+				<description_url>https://www.acm.org/publications/policies/artifact-review-and-badging-current#reproduced</description_url>
+			</reproducible>
+		</reproducibility>
+		<copyrights>
+			<copyright_holder>
+				<copyright_holder_name>Mehdi Houshmand Sarkhoosh, Sushant Gautam, Cise Midoglu, Saeed Shafiee Sabet, Pål Halvorsen</copyright_holder_name>
+				<copyright_holder_year>2024</copyright_holder_year>
+			</copyright_holder>
+		</copyrights>
+		<artifact_links>
+			<linked_articles>
+				<linked_article>
+					<article_doi>10.1145/3625468.3652197</article_doi>
+					<title>Multimodal AI-Based Summarization and Storytelling for Soccer on Social Media</title>
+					<description/>
+				</linked_article>
+				<linked_article>
+					<article_doi>10.1145/3625468.3652180</article_doi>
+					<title>The SoccerSum Dataset for Automated Detection, Segmentation, and Tracking of Objects on the Soccer Pitch</title>
+					<description/>
+				</linked_article>
+			</linked_articles>
+		</artifact_links>
+	</artifact>
+</artifacts>
