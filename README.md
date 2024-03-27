@@ -1,6 +1,5 @@
 # SoccerSum
 
-
 ## Source Code Information
 - **Repository**: [SoccerSum GitHub](https://github.com/simula/SoccerSum)
 - **Programming Languages**: Python, JavaScript, HTML, CSS, AJAX
@@ -12,8 +11,7 @@ Required Python packages:
 
 ## Dataset Information
 The SoccerSum dataset was curated by capturing and annotating soccer videos from the Norwegian Eliteserien league. This collection spans three years, covering 2021, 2022, and 2023. It comprises 750 frames from 41 unique sequences, with 4 to 40 frames per sequence, carefully chosen to represent a diverse selection of scenarios encountered in professional soccer games.
-
-- **Zenodo**: [Access to the Dataset](https://zenodo.org/records/10612084)
+- **Storage**: [SoccerSum dataset on Zenodo](https://zenodo.org/records/10612084)
 
 ## Hardware Requirements
 - **System Tested On**: Linux
@@ -34,9 +32,9 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
    ```
 
 3. Download the model weights for Detection, Segmentation, and Classification:
-   - [Model Weights on Hugging Face](https://huggingface.co/SimulaMet-HOST/SoccerSum)
+   - [SoccerSum HuggingFace repository](https://huggingface.co/SimulaMet-HOST/SoccerSum)
 
-4. Place the weights in the `weights` folder. Adjust paths in `app.py`.
+4. Place the weights in the `weights` folder. Adjust paths in `main.py`.
 
 ### Running the Application
 1. Ensure port 5000 is free on your machine.
@@ -53,6 +51,7 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
 - A valid OPENAI API Access Token for GPT-4 is required.
 - The system processes a 30-second clip in about 1 minute; longer clips take more time.
 - Progress is shown on the GUI sidebar.
+
 
 ## Paper Information and Citations
 
@@ -87,6 +86,3 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
   doi = {10.1145/3625468.3652197}
 }
 </code></pre>
-
-## Contributing
-For contributing to SoccerSum or inquiries, refer to the [GitHub Repository](https://github.com/simula/SoccerSum).
