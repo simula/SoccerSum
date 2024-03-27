@@ -10,6 +10,7 @@ Required Python packages:
 - Flask-related: `flask`, `re`, `torch`, `torchvision`, `ultralytics`, `cv2`, `numpy`, `requests`, `openai`, `whisper`, `librosa`, `sklearn.feature_extraction.text`, `sklearn.metrics.pairwise`, `matplotlib`, `mpl_toolkits.mplot3d`
 
 ## Dataset Information
+The SoccerSum dataset was curated by capturing and annotating soccer videos from the Norwegian Eliteserien league. This collection spans three years, covering 2021, 2022, and 2023. It comprises 750 frames from 41 unique sequences, with 4 to 40 frames per sequence, carefully chosen to represent a diverse selection of scenarios encountered in professional soccer games.
 - **Storage**: [SoccerSum dataset on Zenodo](https://zenodo.org/records/10612084)
 
 ## Hardware Requirements

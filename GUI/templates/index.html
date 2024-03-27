@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SoccerSum</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='SoccerSum-LOGO.png') }}">
+</head>
+<body>
+    <div>
+        <img src="{{ url_for('static', filename='SoccerSum-LOGO.png') }}" alt="Logo" id="logo">
+    </div>
+
+    <button id="reloadButton">Start Over</button>
+
+    <div id="progressBarContainer">
+        <div id="progressBar"></div>
+
+        <div class="marker" style="top: 1%;">Processing Video</div>
+        <div class="marker" style="top: 10%;"><div class="line"></div>Key Frame Selection</div>
+        <div class="marker" style="top: 20%;"><div class="line"></div>Shot Type Classification</div>
+        <div class="marker" style="top: 30%;"><div class="line"></div>Object Detection</div>
+        <div class="marker" style="top: 40%;"><div class="line"></div>Pitch Segmentation</div>
+        <div class="marker" style="top: 50%;"><div class="line"></div>Object Tracking</div>
+        <div class="marker" style="top: 60%;"><div class="line"></div>Automatic Speech Recognition</div>
+        <div class="marker" style="top: 70%;"><div class="line"></div>Audio Intensity Analysis</div>
+        <div class="marker" style="top: 80%;"><div class="line"></div>Prompt Engineering</div>
+        <div class="marker" style="top: 90%;"><div class="line"></div>GPT Integration</div>
+        <div class="marker" style="top: 97.5%;">Response</div>
+
+        
+    </div>
+    
+    <div class="header">
+        <h1>SoccerSum - End to End Caption Generation Pipeline</h1>
+    </div>
+    <div class="container">
+        
+        <form id="uploadForm" action="/" method="post" enctype="multipart/form-data">
+            <div class="input-section">
+                <div class="column">
+                    <!-- File input and URL input field -->
+                    <input type="file" name="video_file" id="video_file" onchange="previewVideo()">
+                    <p class="or-text">- OR -</p>
+                    <div style="border-top: 2px dashed #ccc;">
+                    <input type="text" name="video_url" placeholder="Enter Video URL" id="video_url" oninput="updateVideoUrl()" style="margin-top: 20px;">
+                    </div>    
+
+
+                </div>
+                <div class="column">
+                    <!-- Video preview section -->
+                    <video id="videoPreview" controls style="width:100%; max-height:300px;">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>            
+            
+            <div class="frames-container" id="framesContainer">
+                <h2>Extracted Frames</h2>
+                <div id="extractFrames">
+                    
+                    <!-- Extracted frames will be displayed here -->
+                </div>
+            </div>
+            
+            <!-- Modal for enlarged image -->
+            <div id="imageModal" class="modal">
+                <span class="close" onclick="document.getElementById('imageModal').style.display='none'">&times;</span>
+                <img class="modal-content" id="largeImage">
+            </div>
+
+            <div id="originalRoute">
+                        
+                        <div class="side-by-side-sections">
+                            
+                            <h1>Video</h1>
+                                <!-- Checkbox for manual frame selection placed under the input fields -->
+                                <label class="frame-selection">
+                                <input type="checkbox" name="manual_frame_selection" id="manualFrameSelection">
+                                I want to manually select frames
+                                </label>
+                                <div class="video_module">
+                            
+                                        <!-- FPS Reduction Settings -->
+                                        <div class="fps-reduction-section">
+                                            <h2>Key Frames Selection</h2>
+                                            
+                                            <div>
+                                                <input type="radio" name="fpsMethod" id="set_fps" value="set_fps" checked>
+                                                <label for="set_fps">Set FPS</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="fpsMethod" id="uniform" value="uniform">
+                                                <label for="uniform">Uniform</label>
+                                            </div>
+
+                                            <div id="targetFpsContainer">
+                                                <label for="targetFps">Target FPS:</label>
+                                                <input type="number" name="targetFps" id="targetFps" min="1" max="60" value="1">
+                                            </div>
+
+                                            <div id="uniformFrameRateContainer" style="display: none;">
+                                                <label for="frameSelectionRate">Frame Selection Rate:</label>
+                                                <input type="number" name="frameSelectionRate" id="frameSelectionRate" min="1" value="25">
+                                            </div>
+                                        </div>
+
+                                        <div class="fps-reduction-section">
+                                            <h2>Shot Type Classification</h2>
+                                            <label for="shotTypeModel">Select desired type of shots:</label>
+                                            <select id="shotTypeModel" name="shotTypeModel" class="detection_model" multiple>
+                                                <option value="LS" selected>Long shot</option>
+                                                <option value="FS" selected>Full shot</option>
+                                                <option value="MS" selected>Medium shot</option>
+                                                <option value="CS">Close-up shot</option>
+                                                <option value="ECS">Extreme close-up shot</option>
+                                            </select>
+                                            
+                                        </div>
+
+                                        
+                                    
+                                </div>
+
+
+                                <div class="video_module">
+                                    <!-- Object Detection-->
+                                    <div class="fps-reduction-section">
+                                        <h2>Object Detection</h2>
+                                        <label for="detectionModel">Select the detection model:</label>
+                                        <select id="detectionModel" name="detectionModel" class="detection_model">
+                                            <option value="YD1" selected>YOLOv8 Medium - Finetuned</option>
+                                            <option value="YD2">YOLOv8 - Nano</option>
+                                            <option value="YD3">YOLOv8 - Small</option>
+                                            <option value="YD4">YOLOv8 - Medium</option>
+                                            <option value="YD5">YOLOv8 - Large</option>
+                                            <option value="YD6">YOLOv8 - Xlarge</option>
+                                            <option value="YD7">YOLOv8 - Medium Football</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </div>
+
+                                    <!-- Pitch Segmentation-->
+                                    <div class="fps-reduction-section">
+                                        <h2>Pitch Segmentation</h2>
+                                        <label for="segmentationModel">Select the segmentation model:</label>
+                                        <select id="segmentationModel" name="segmentationModel" class="detection_model">
+                                            <option value="YS1" selected>YOLOv8-Seg Medium - Finetuned</option>
+                                            <option value="YS2">YOLOv8-Seg - Nano</option>
+                                            <option value="YS3">YOLOv8-Seg - Small</option>
+                                            <option value="YS4">YOLOv8-Seg - Medium</option>
+                                            <option value="YS5">YOLOv8-Seg - Large</option>
+                                            <option value="YS6">YOLOv8-Seg - Xlarge</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </div>
+                                    <!-- Object Tracking-->
+                                    <div class="fps-reduction-section">
+                                        <h2>Object Tracking</h2>
+                                        <label for="trackingModel">Select the tracking object:</label>
+                                        <select id="trackingModel" name="trackingModel" class="detection_model">
+                                            <option value="YT1" selected>Goalkeeper</option>
+                                            <option value="YT2">Player</option>
+                                            <option value="YT3">Ball</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </div>
+                                </div>    
+                        </div>
+
+                        <div class="side-by-side-sections">
+                            <h1>Audio</h1>
+                            <div class="video_module">
+
+                                <div class="fps-reduction-section">
+                                    <h2>Automatic Speech Recognition</h2>
+                                    <div class="audio_innerBox">
+                                        <input type="checkbox" name="enableTranscript" id="enableTranscript" checked>
+                                        <label for="enableTranscript">Enable Video Transcript Processing</label>
+                                        
+                                        <div class="fps-reduction-section" id="whisperParent">
+                                            <h2>OPENAI Whisper V2</h2>
+                                            <label for="whisperModel">Select the Whisper model:</label>
+                                            <select id="whisperModel" name="whisperModel" class="detection_model">
+                                                <option value="tiny">Tiny</option>
+                                                <option value="base" selected>Base</option>
+                                                <option value="small">Small</option>
+                                                <option value="medium">Medium</option>
+                                                <!-- Add more options as needed -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fps-reduction-section">
+                                    <h2>Audio Intensity Analysis</h2>
+                                    <div class="audio_innerBox">
+                                        <input type="checkbox" name="enableRME" id="enableRME" checked>
+                                        <label for="enableRME">Enable Audio Intensity Analysis</label>
+                                    </div>
+                                    <div class="fps-reduction-section" id="audioIntensityParent">
+                                        <h2>Librosa Parameters</h2>
+
+                                        <label for="frameLength">Frame Length:</label>
+                                        <select id="frameLength" name="frameLength" class="librosa_parameter" title="Number of samples in each frame. Higher values provide better frequency resolution, lower values offer better time resolution.">
+                                            <option value="512">512</option>
+                                            <option value="1024" selected>1024</option>
+                                            <option value="2048">2048</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                        
+                                        <label for="hopLength">Hop Length:</label>
+                                        <select id="hopLength" name="hopLength" class="librosa_parameter" title="Number of samples between successive frames. Lower values lead to overlap and finer time resolution.">
+                                            <option value="128">128</option>
+                                            <option value="256" selected>256</option>
+                                            <option value="512">512</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>            
+                        </div>    
+
+                        
+                        <div class="side-by-side">
+                            
+                        <!-- New Metadata Input Section -->
+                        <div class="metadata-container">
+                            <h1>Metadata Processing</h1>
+                            <div class="metadata-section">
+                                <h2>Metadata of the Goal Event</h2>
+                        
+                                <div class="upload-section">
+                                    <label for="metadataFile">Upload JSON File:</label>
+                                    <input type="file" name="metadataFile" id="metadataFile" accept=".json">
+                                    <p class="or-text">- OR -</p>
+                                </div>
+                                
+                                <div class="manual-input-section">
+                                    <label for="metadataDate">Date:</label>
+                                    <input type="text" name="metadataDate" id="metadataDate" placeholder="YYYY-MM-DD" title="Enter the date of the event (format: YYYY-MM-DD)">
+                                
+                                    <label for="metadataTime">Time:</label>
+                                    <input type="text" name="metadataTime" id="metadataTime" placeholder="HH:MM" title="Enter the time of the goal (format: HH:MM)">
+                                
+                                    <label for="metadataTeam">Team:</label>
+                                    <input type="text" name="metadataTeam" id="metadataTeam" placeholder="Team Name" title="Enter the name of the team involved in the event">
+                                
+                                    <label for="metadataScorer">Scorer:</label>
+                                    <input type="text" name="metadataScorer" id="metadataScorer" placeholder="Player Name" title="Enter the name of the player who scored the goal">
+                                
+                                    <label for="metadataShotType">Goal Type:</label>
+                                    <input type="text" name="metadataShotType" id="metadataShotType" placeholder="Goal Type" title="Enter the type of goal shot (e.g., header, free kick)">
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        
+                        
+                        <div class="metadata-container" style="margin-right: 0px;">
+                            <h1>Prompt Engineering</h1>
+                                <!-- OpenAI API Key Input Section -->
+                                <div class="api-key-section">
+                                    <div class="api-header">
+                                        <h2>OpenAI API Key and Parameters</h2>
+                                    </div>
+                                
+                                    <div class="input-pair">
+                                        <input type="text" name="openai_api_key" placeholder="Enter OpenAI API Key" id="openai_api_key" title="Your OpenAI API Key for accessing GPT models">
+                                    </div>
+                                
+                                    <div class="input-pair">
+                                        <label for="temperature">Temperature:</label>
+                                        <input type="number" step="0.1" name="temperature" id="temperature" value="0.7" min="0" max="2" title="Controls randomness: Lower values make responses more deterministic">
+                                    </div>
+                                
+                                    <div class="input-pair">
+                                        <label for="maxTokens">Max Tokens:</label>
+                                        <input type="number" name="maxTokens" id="maxTokens" value="1000" title="The maximum number of tokens to generate in the response">
+                                    </div>
+                                    
+                                    <div class="input-pair">
+                                        <label for="topP">Top P:</label>
+                                        <input type="number" step="0.1" name="topP" id="topP" value="1" min="0" max="1" title="Nucleus sampling: Higher values allow more diversity, lower values make responses more focused">
+                                    </div>
+                                
+                                    <div class="input-pair">
+                                        <label for="presencePenalty">Presence Penalty:</label>
+                                        <input type="number" step="0.1" name="presencePenalty" id="presencePenalty" value="0" min="-2" max="2" title="Penalizes new tokens based on their existing presence in the context">
+                                    </div>
+                                
+                                    <div class="input-pair">
+                                        <label for="frequencyPenalty">Frequency Penalty:</label>
+                                        <input type="number" step="0.1" name="frequencyPenalty" id="frequencyPenalty" value="0" min="-2" max="2" title="Penalizes new tokens based on their frequency in the context">
+                                    </div>
+                                
+                                    <div class="input-pair">
+                                        <label for="seed">Seed (optional):</label>
+                                        <input type="number" name="seed" id="seed" title="An integer seed for deterministic generation. Leave blank for random responses">
+                                    </div>
+                                    <div class="input-pair">
+                                        <label for="promptDisplay">Prompt Text:</label>
+                                        <div id="promptDisplay" class="prompt-display">
+                                            
+                                            Compose a series of tweets, each with a maximum of 280 characters, narrating the progression of a soccer goal. Use the provided object detection data from key frames to detail the attack's initiation, build-up, and final goal moment. Include the position of all the detected objects in compare to each other. In which part of the pitch ball and other player are moving and etc. Each tweet should capture a different stage of the play, highlighting player movements, ball trajectory, and field positions. The narrative should start with the attack's setup, move through the key passes and strategic plays, climax with the goal, and conclude with the immediate aftermath of the event. Ensure the language is vivid and engaging, encapsulating the excitement of the crowd and the skill on display. Do not reference frame numbers or technical metadata. Instead, translate the data into a dynamic and flowing story that brings the goal to life for your audience.
+                                        </div>
+                                    </div>
+                                </div>
+                        </div> 
+                        </div>   
+            </div>
+            <input type="submit" value="Run" id="mainButton">
+            <input type="submit" value="Extract Frames" id="extractFramesButton" style="display: none;">
+        </div>
+
+
+
+            
+        </form>
+
+
+
+        <!-- second form---------------------------------------------------------------- -->
+
+        <form id="uploadFormSelective" action="/handle-selected-frames" method="post" enctype="multipart/form-data">
+            <div id="secondRoute" class="container" style="display: none;">
+                        
+                
+                    <div class="side-by-side-sections">
+                        <h1>Video</h1>
+                        
+                            <div class="video_module">
+                                <!-- Object Detection-->
+                                <div class="fps-reduction-section">
+                                    <h2>Object Detection</h2>
+                                    <label for="detectionModel2">Select the detection model:</label>
+                                    <select id="detectionModel2" name="detectionModel2" class="detection_model">
+                                        <option value="YD1" selected>YOLOv8 Medium - Finetuned</option>
+                                        <option value="YD2">YOLOv8 - Nano</option>
+                                        <option value="YD3">YOLOv8 - Small</option>
+                                        <option value="YD4">YOLOv8 - Medium</option>
+                                        <option value="YD5">YOLOv8 - Large</option>
+                                        <option value="YD6">YOLOv8 - Xlarge</option>
+                                        <option value="YD7">YOLOv8 - Medium Football</option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+                                </div>
+
+                                <!-- Pitch Segmentation-->
+                                <div class="fps-reduction-section">
+                                    <h2>Pitch Segmentation</h2>
+                                    <label for="segmentationModel2">Select the segmentation model:</label>
+                                    <select id="segmentationModel2" name="segmentationModel2" class="detection_model">
+                                        <option value="YS1" selected>YOLOv8-Seg Medium - Finetuned</option>
+                                        <option value="YS2">YOLOv8-Seg - Nano</option>
+                                        <option value="YS3">YOLOv8-Seg - Small</option>
+                                        <option value="YS4">YOLOv8-Seg - Medium</option>
+                                        <option value="YS5">YOLOv8-Seg - Large</option>
+                                        <option value="YS6">YOLOv8-Seg - Xlarge</option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+                                </div>
+                                <!-- Object Tracking-->
+                                <div class="fps-reduction-section">
+                                    <h2>Object Tracking</h2>
+                                    <label for="trackingModel2">Select the tracking object:</label>
+                                    <select id="trackingModel2" name="trackingModel2" class="detection_model">
+                                        <option value="YT1" selected>Goalkeeper</option>
+                                        <option value="YT2">Players</option>
+                                        <option value="YT3">Ball</option>
+                                        <!-- Add more options as needed -->
+                                    </select>
+                                </div>
+                            </div>    
+                    </div>
+
+                        <div class="side-by-side-sections">
+                            <h1>Audio</h1>
+                            <div class="video_module">
+
+                                <div class="fps-reduction-section">
+                                    <h2>Asutomatic Speech Recognition</h2>
+                                    <div class="audio_innerBox">
+                                        <input type="checkbox" name="enableTranscript2" id="enableTranscript2" checked>
+                                        <label for="enableTranscript2">Enable Video Transcript Processing</label>
+                                        
+                                        <div class="fps-reduction-section" id="whisperParent">
+                                            <h2>OPENAI Whisper V2</h2>
+                                            <label for="whisperModel2">Select the Whisper model:</label>
+                                            <select id="whisperModel2" name="whisperModel2" class="detection_model">
+                                                <option value="tiny">Tiny</option>
+                                                <option value="base" selected>Base</option>
+                                                <option value="small">Small</option>
+                                                <option value="medium">Medium</option>
+                                                <!-- Add more options as needed -->
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fps-reduction-section">
+                                    <h2>Audio Intensity Analysis</h2>
+                                    <div class="audio_innerBox">
+                                        <input type="checkbox" name="enableRME2" id="enableRME2" checked>
+                                        <label for="enableRME2">Enable Audio Intensity Analysis</label>
+                                    </div>
+                                    <div class="fps-reduction-section" id="audioIntensityParent">
+                                        <h2>Librosa Parameters</h2>
+
+                                        <label for="frameLength2">Frame Length:</label>
+                                        <select id="frameLength2" name="frameLength2" class="librosa_parameter" title="Number of samples in each frame. Higher values provide better frequency resolution, lower values offer better time resolution.">
+                                            <option value="512">512</option>
+                                            <option value="1024" selected>1024</option>
+                                            <option value="2048">2048</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                        
+                                        <label for="hopLength2">Hop Length:</label>
+                                        <select id="hopLength2" name="hopLength2" class="librosa_parameter" title="Number of samples between successive frames. Lower values lead to overlap and finer time resolution.">
+                                            <option value="128">128</option>
+                                            <option value="256" selected>256</option>
+                                            <option value="512">512</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                        
+                                    </div>
+                                </div>
+
+                            </div>            
+                        </div>   
+
+
+                        <div class="side-by-side">
+                            
+                            <!-- New Metadata Input Section -->
+                            <div class="metadata-container">
+                                <h1>Metadata Processing</h1>
+                                <div class="metadata-section">
+                                    <h2>Metadata of the Goal Event</h2>
+                            
+                                    <div class="upload-section">
+                                        <label for="metadataFile2">Upload JSON File:</label>
+                                        <input type="file" name="metadataFile2" id="metadataFile2" accept=".json">
+                                        <p class="or-text">- OR -</p>
+                                    </div>
+                                    
+                                    <div class="manual-input-section">
+                                        <label for="metadataDate2">Date:</label>
+                                        <input type="text" name="metadataDate2" id="metadataDate2" placeholder="YYYY-MM-DD" title="Enter the date of the event (format: YYYY-MM-DD)">
+                                    
+                                        <label for="metadataTime2">Time:</label>
+                                        <input type="text" name="metadataTime2" id="metadataTime2" placeholder="HH:MM" title="Enter the time of the goal (format: HH:MM)">
+                                    
+                                        <label for="metadataTeam2">Team:</label>
+                                        <input type="text" name="metadataTeam2" id="metadataTeam2" placeholder="Team Name" title="Enter the name of the team involved in the event">
+                                    
+                                        <label for="metadataScorer2">Scorer:</label>
+                                        <input type="text" name="metadataScorer2" id="metadataScorer2" placeholder="Player Name" title="Enter the name of the player who scored the goal">
+                                    
+                                        <label for="metadataShotType2">Goal Type:</label>
+                                        <input type="text" name="metadataShotType2" id="metadataShotType2" placeholder="Goal Type" title="Enter the type of goal shot (e.g., header, free kick)">
+                                    </div>
+                                </div>
+                            </div>
+                            
+    
+                            
+                            
+                            <div class="metadata-container" style="margin-right: 0px;">
+                                <h1>Prompt Engineering</h1>
+                                    <!-- OpenAI API Key Input Section -->
+                                    <div class="api-key-section">
+                                        <div class="api-header">
+                                            <h2>OpenAI API Key and Parameters</h2>
+                                        </div>
+                                    
+                                        <div class="input-pair">
+                                            <input type="text" name="openAIApiKey2" id="openAIApiKey2" placeholder="Enter OpenAI API Key"  title="Your OpenAI API Key for accessing GPT models">
+                                        </div>
+                                    
+                                        <div class="input-pair">
+                                            <label for="temperature2">Temperature:</label>
+                                            <input type="number" step="0.1" name="temperature2" id="temperature2" value="0.7" min="0" max="2" title="Controls randomness: Lower values make responses more deterministic">
+                                        </div>
+                                    
+                                        <div class="input-pair">
+                                            <label for="maxTokens2">Max Tokens:</label>
+                                            <input type="number" name="maxTokens2" id="maxTokens2" value="1000" title="The maximum number of tokens to generate in the response">
+                                        </div>
+                                        
+                                        <div class="input-pair">
+                                            <label for="topP2">Top P:</label>
+                                            <input type="number" step="0.1" name="topP2" id="topP2" value="1" min="0" max="1" title="Nucleus sampling: Higher values allow more diversity, lower values make responses more focused">
+                                        </div>
+                                    
+                                        <div class="input-pair">
+                                            <label for="presencePenalty2">Presence Penalty:</label>
+                                            <input type="number" step="0.1" name="presencePenalty2" id="presencePenalty2" value="0" min="-2" max="2" title="Penalizes new tokens based on their existing presence in the context">
+                                        </div>
+                                    
+                                        <div class="input-pair">
+                                            <label for="frequencyPenalty2">Frequency Penalty:</label>
+                                            <input type="number" step="0.1" name="frequencyPenalty2" id="frequencyPenalty2" value="0" min="-2" max="2" title="Penalizes new tokens based on their frequency in the context">
+                                        </div>
+                                    
+                                        <div class="input-pair">
+                                            <label for="seed2">Seed (optional):</label>
+                                            <input type="number" name="seed2" id="seed2" title="An integer seed for deterministic generation. Leave blank for random responses">
+                                        </div>
+                                        <div class="input-pair">
+                                            <label for="promptDisplay">Prompt Text:</label>
+                                            <div id="promptDisplay" class="prompt-display">
+                                                
+                                                Compose a series of tweets, each with a maximum of 280 characters, narrating the progression of a soccer goal. Use the provided object detection data from key frames to detail the attack's initiation, build-up, and final goal moment. Include the position of all the detected objects in compare to each other. In which part of the pitch ball and other player are moving and etc. Each tweet should capture a different stage of the play, highlighting player movements, ball trajectory, and field positions. The narrative should start with the attack's setup, move through the key passes and strategic plays, climax with the goal, and conclude with the immediate aftermath of the event. Ensure the language is vivid and engaging, encapsulating the excitement of the crowd and the skill on display. Do not reference frame numbers or technical metadata. Instead, translate the data into a dynamic and flowing story that brings the goal to life for your audience.
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div> 
+                            </div> 
+                    
+                        <button class="processButton2" onclick="sendSelectedFrames()">Run</button>   
+                    </div>
+                    
+        </form>
+
+
+
+
+        
+
+        
+        <div id="results" class="results-section"  style="display: none;">
+            <h2>Results</h2>
+        
+            <div class="result-box">
+                <h3>Response From GPT-4</h3>
+                <div id="chatResponse"><!-- Chat response content --></div>
+            </div>
+        
+            <div class="result-box audio-box">
+                <h3>Video</h3>
+                <div class="audio-container">
+                    <div class="audio-item" >
+                        <h3>Object Detection</h3>
+                        <div id="objectDetectionResult">
+
+                        </div>
+                    </div>
+                    <div class="audio-item">
+                        <h3>Pitch Segmentation</h3>
+                        <div id="pitchSegmentationResult">
+                        
+                        </div>
+                    </div>
+                    <div class="audio-item" >
+                        <h3>Object Tracking</h3>
+                        <div><img id="objectTrackingResult" style="width:100%;">
+                        
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        
+            <div class="result-box audio-box">
+                <h3>Audio</h3>
+                <div class="audio-container">
+                    <div class="audio-item" >
+                        <h3>Automatic Speech Recognition</h3>
+                        <div id="finalTranscriptBox">
+
+                        </div>
+                    </div>
+                    <div class="audio-item">
+                        <h3>Audio Intensity Analysis</h3>
+                        <div><img id="rmsAnimation" style="width:100%;">
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+    <footer id="footer">
+        <p>Version 1.0.0</p>
+    </footer>
+</body>
+</html>

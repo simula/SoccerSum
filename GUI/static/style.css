@@ -1,0 +1,709 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+#logo {
+    position: fixed;
+    top: 1vw;
+    left: 1vw;
+    width: 5vw; /* Adjust the width as per your requirement */
+    height: auto; /* This ensures the aspect ratio is maintained */
+    z-index: 1000; /* This ensures the logo stays above other content */
+}
+
+
+/* Optional: Resize logo for smaller screens */
+@media (max-width: 600px) {
+    #logo {
+        width: 15vw; /* Larger percentage for smaller screens */
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#progressBarContainer {
+    display: none; /* Initially hidden */
+    opacity: 0; /* Start with 0 opacity */
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 180px; /* Width of the progress bar */
+    height: 95%;
+    background: linear-gradient(135deg, #6a7285 0%, #eef1f5 100%);
+    background-size: 400% 400%;
+    border-radius: 10px 10px 10px 10px;
+    margin: 20px 10px 20px 20px;
+    /* Other properties for gradientBG animation can go here if needed */
+}
+
+.fadeIn {
+    animation: fadeIn 1s forwards;
+}
+
+#progressBar {
+    width: 100%;
+    height: 0%; /* Initial height */
+    background: linear-gradient(135deg, #78ff69 0%, #c5ffdbc2 100%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    border-radius: 10px 10px 10px 10px;
+}
+
+
+.marker {
+    position: absolute;
+    right: 20px; /* Adjust based on the width of the progress bar */
+    color: black; /* Text color */
+    text-align: left; /* Align text to the left */
+    width: 150px; /* Set a fixed width to allow text wrapping */
+    /* Adjust as needed for your specific layout */
+}
+
+.line {
+    position: absolute;
+    right: -20px;
+    width: 180px; /* Same as the width of the progress bar */
+    height: 0.1px; /* Height of the line */
+    background-color: rgba(0, 0, 0, 0.35); /* Line color */
+    top: -10%; /* Center the line vertically in the marker */
+    transform: translateY(-50%); /* Align it perfectly center */
+}
+
+.header {
+    width: 77%;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #6a7285 0%, #eef1f5 100%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+
+#reloadButton {
+    position: fixed;
+    width: 145px;
+    font-weight: 700;
+    bottom: 8%; 
+    left: 20px; 
+    padding: 10px 20px; 
+    background-color: #4CAF50; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    transition: background-color 0.3s, box-shadow 0.3s; 
+}
+
+#reloadButton:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3); /* Larger shadow on hover */
+}
+
+
+.container {
+    width: 77%;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #6a7285 0%, #eef1f5 100%);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    flex-wrap: wrap;
+    border: 2px solid #007bff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.column {
+    flex: 1;
+    min-width: 250px; 
+    padding: 10px;
+}
+
+#videoPreview {
+    max-width: 100%;
+    height: auto;
+}
+
+.frame-selection {
+    display: block;
+    height: 50px; 
+    border: 2px solid #28a745; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    margin-top: 10px;
+
+    margin-right: 10px;
+    padding-top: 25px;
+    padding-left: 10px;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+    animation: pulseAnimation 2s infinite;
+}
+
+@keyframes pulseAnimation {
+    0% {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    100% {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.frame-selection:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-color: #ffffff;
+}
+
+
+
+
+input[type="file"], input[type="text"], input[type="submit"] {
+    display: block;
+    width: 95%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 4px;
+    border: 2px solid #737373;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 20px 0px 0px 0px;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+    color: #007bff;
+}
+
+@media screen and (max-width: 600px) {
+    .input-section {
+        flex-direction: column;
+    }
+
+    .column {
+        width: 100%;
+        padding: 10px 0;
+    }
+}
+
+div#secondRoute {
+    margin-top: 25px;
+}
+
+.processButton2{
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 20px 0px 0px 0px;
+    width: 100%;
+    height: 45px;
+    border: 2px solid #737373;
+    border-radius: 4px;
+} 
+
+.frames-container {
+    display: none;
+    flex-wrap: wrap;
+    gap: 10px; /* Adjust the gap as needed */
+    margin-top: 20px;
+    border: 2px solid #28a745;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    min-height: 200px;
+    opacity: 0.5; /* Greyed out */
+    pointer-events: none; /* Non-interactive */
+}
+
+.frame-image {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 10px; 
+    margin-right: 10px;
+}
+
+
+
+.selected-frame {
+    position: relative; 
+    border: 6px solid blue;
+    border-radius: 5px;
+}
+
+
+/* Style for modal */
+.modal {
+    display: none;
+    align-items: center;
+    justify-content: center; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.9); 
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div#extractFrames {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: flex-start;
+
+}
+
+.side-by-side-sections {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    border: 2px solid #007bff; 
+    border-radius: 5px; 
+    padding: 10px;
+}
+
+.side-by-side-sections h1 {
+    margin-bottom: 10px;
+    text-align: left; 
+    padding: 10px;
+}
+
+.video_module {
+    display: flex;
+    flex-direction: row; /* Align children side by side */
+    width: 100%;
+}
+
+.fps-reduction-section,
+.options-section {
+    flex: 1;
+    margin-right: 10px; /* Spacing between sections */
+}
+
+
+
+.fps-reduction-section {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #28a745;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex; /* Use flex layout */
+    flex-direction: column; /* Stack elements vertically */
+    font-size: 16px; /* Larger font size */
+}
+
+
+.fps-reduction-section label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.fps-reduction-section input[type="radio"], 
+.fps-reduction-section input[type="number"] {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 16px; /* Larger font size for readability */
+}
+
+.fps-reduction-section input[type="radio"] {
+    margin-right: 5px;
+    cursor: pointer; /* Pointer cursor for radio buttons */
+}
+
+.fps-reduction-section .input-pair {
+    display: flex; /* Use flex layout for input pairs */
+    align-items: center; /* Align label and input vertically */
+}
+
+.fps-reduction-section .input-pair label {
+    margin-right: 10px; /* Space between label and input */
+}
+
+/* Style for container of target FPS and frame rate inputs */
+#targetFpsContainer, #uniformFrameRateContainer {
+    display: flex; /* Use flex layout */
+    align-items: center; /* Align label and input vertically */
+}
+
+/* Style improvements for select dropdown */
+.fps-reduction-section select {
+    cursor: pointer;
+    background-color: white;
+    -webkit-appearance: none; /* Removes default styling on Webkit browsers */
+    -moz-appearance: none; /* Removes default styling on Firefox */
+    appearance: none; /* Removes default styling */
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+div#whisperParent {
+    padding-bottom: 90px;
+}
+
+
+.options-section {
+    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid #ffc107;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.options-section div {
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.detection_model {
+    margin-top: 10px;
+}
+
+.metadata-container {
+    border: 2px solid #007bff; /* Adjust the color as needed */
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 10px;
+    width: 50%;
+    margin-top: 20px;
+}
+
+.metadata-container h1{
+
+    margin-bottom: 10px;
+    text-align: left;
+    padding: 10px;
+}
+.metadata-section {
+    border: 2px solid #28a745;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.upload-section {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.or-text {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #666;
+    text-align: center;
+}
+
+.manual-input-section {
+    border-top: 2px dashed #ccc;
+    padding-top: 20px;
+}
+
+
+textarea {
+    width: 97%;
+    height: 60px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+textarea#metadata {
+    height: 275px;
+}
+
+.api-key-section {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column; /* Stack children vertically */
+}
+
+.prompt-display {
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    color: #333;
+    margin-bottom: 10px;
+    user-select: none;
+    overflow-y: auto;
+    word-break: break-word;
+    width: 50%;
+    height: 7.8em; /* Adjusted for 4 lines of text */
+    line-height: 1.2em;
+}
+
+.prompt-display:hover {
+    cursor: not-allowed; /* Cursor style indicating non-editability */
+}
+
+
+
+.api-header h2 {
+    margin-bottom: 15px;
+}
+
+.input-pair {
+    display: flex;
+    flex-direction: row; /* Place label and input side by side */
+    margin-bottom: 10px;
+    width: 100%; /* Full width for each pair */
+}
+
+.input-pair label, .input-pair input {
+    flex: 1; /* Divide space equally between label and input */
+    margin-right: 10px; /* Space between label and input */
+}
+
+.input-pair input[type="text"], .input-pair input[type="number"] {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+@media screen and (max-width: 600px) {
+    .input-pair {
+        flex-direction: column; /* Stack label and input vertically on smaller screens */
+    }
+
+    .input-pair label, .input-pair input {
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+
+
+.side-by-side {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.metadata-section, .api-key-section {
+    flex: 1;
+    margin-right: 10px; /* Spacing between sections */
+}
+
+.api-key-section {
+    margin-right: 0; /* Remove margin for the last section */
+}
+
+.tweet-box {
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tweet-box:hover {
+    background-color: #f2f2f2;
+}
+
+/* Style for the tooltip */
+.tooltip {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 10000;
+}
+
+.tweet-box:hover .tooltip {
+    opacity: 1;
+}
+.results-section {
+    display: grid;
+    grid-template-columns: 1fr; /* Single column layout */
+    width: 77%;
+    margin: 0 auto;
+    border: 2px solid #007bff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #e6e9f0 0%, #eef1f5 100%);
+    gap: 10px; /* Space between grid items */
+}
+
+.results-section > h2 {
+    grid-column: 1 / -1; /* Span across the single column */
+    margin-top: 0;
+}
+
+.result-box {
+    border: 1px solid #28a745;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #f8f8f8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+.result-box h3 {
+    margin-top: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .results-section {
+        grid-template-columns: 1fr; /* Single column layout for smaller screens */
+    }
+}
+
+.audio-box {
+    /* Styling specific to the audio box, if needed */
+    font-size: inherit;
+}
+
+.audio-container {
+    display: flex; /* Enables Flexbox */
+    justify-content: space-between; /* Spacing between flex items */
+    align-items: center; /* Align items vertically */
+}
+
+.audio-item {
+    border: 1px solid #007bff; /* Blue border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 10px;
+    margin: 5px; /* Margin around each item */
+    width: calc(50% - 10px); /* Adjust width to account for margin */
+    box-sizing: border-box; /* Include padding and border in the width */
+    height: 330px; /* Fixed height */
+
+}
+
+img#objectTrackingResult {
+    height: 280px;
+    width: auto;
+    display: flex; /* Enables Flexbox */
+    justify-content: space-between; /* Spacing between flex items */
+    align-items: center; /* Align items vertically */
+}
+
+
+/* Responsive adjustments */
+@media screen and (max-width: 600px) {
+    .audio-container {
+        flex-direction: column; /* Stack items vertically on smaller screens */
+    }
+
+    .audio-item {
+        width: auto; /* Full width on smaller screens */
+    }
+}
+
+#footer {
+    background-color: #f2f2f2; 
+    color: #333333; 
+    text-align: center; 
+    padding: 10px 20px; 
+    position: fixed; 
+    left: 5%; 
+    bottom: 10px; 
+    transform: translateX(-50%); 
+    border-radius: 5px; 
+    border: 2px solid #d4d4d4; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); 
+    font-family: 'Arial', sans-serif;
+    z-index: 1000; 
+}
+
+#footer p {
+    margin: 0; /* Remove default margin */
+    font-size: 1em; /* Adjust font size */
+    font-weight: bold; /* Make text bold */
+}
