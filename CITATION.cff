@@ -1,0 +1,32 @@
+cff-version: 1.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Houshmand Sarkhoosh"
+  given-names: "Mehdi"
+  orcid: "https://orcid.org/0009-0008-4616-4592"
+
+- family-names: "Gautam"
+  given-names: "Sushant"
+  orcid: "https://orcid.org/0000-0001-9232-2661"
+
+- family-names: "Midoglu"
+  given-names: "Cise"
+  orcid: "https://orcid.org/0000-0003-0991-4418"
+
+- family-names: "Shafiee Sabet"
+  given-names: "Saeed"
+  orcid: "https://orcid.org/0000-0001-5348-8546"
+
+- family-names: "Halvorsen"
+  given-names: "Pål"
+  orcid: "https://orcid.org/0000-0003-2073-7029"
+
+
+
+
+
+title: "Multimodal AI-Based Summarization and Storytelling for Soccer on Social Media"
+version: 1.0
+doi: 10.5281/zenodo.10612084
+date-released: 2024-03-01
+url: "https://github.com/simula/SoccerSum"
