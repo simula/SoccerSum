@@ -1,17 +1,16 @@
 # SoccerSum
 
-## Source Code Information
+## Source Code
 - **Repository**: [SoccerSum GitHub](https://github.com/simula/SoccerSum)
 - **Programming Languages**: Python, JavaScript, HTML, CSS, AJAX
 - **Python Version**: Python 3.11
 
 ## Packages and Libraries
-Required Python packages:
-- Flask-related: `flask`, `re`, `torch`, `torchvision`, `ultralytics`, `cv2`, `numpy`, `requests`, `openai`, `whisper`, `librosa`, `sklearn.feature_extraction.text`, `sklearn.metrics.pairwise`, `matplotlib`, `mpl_toolkits.mplot3d`
+- **Required Python Packages**: `flask`, `re`, `torch`, `torchvision`, `ultralytics`, `cv2`, `numpy`, `requests`, `openai`, `whisper`, `librosa`, `sklearn.feature_extraction.text`, `sklearn.metrics.pairwise`, `matplotlib`, `mpl_toolkits.mplot3d`
 
-## Dataset Information
+## Dataset
 The SoccerSum dataset was curated by capturing and annotating soccer videos from the Norwegian Eliteserien league. This collection spans three years, covering 2021, 2022, and 2023. It comprises 750 frames from 41 unique sequences, with 4 to 40 frames per sequence, carefully chosen to represent a diverse selection of scenarios encountered in professional soccer games.
-- **Storage**: [SoccerSum dataset on Zenodo](https://zenodo.org/records/10612084)
+- **Zenodo Record**: [SoccerSum dataset on Zenodo](https://zenodo.org/records/10612084)
 
 ## Hardware Requirements
 - **System Tested On**: Linux
@@ -31,8 +30,7 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
    pip install -r requirements.txt
    ```
 
-3. Download the model weights for Detection, Segmentation, and Classification:
-   - [SoccerSum HuggingFace repository](https://huggingface.co/SimulaMet-HOST/SoccerSum)
+3. Download the model weights for Detection, Segmentation, and Classification: [SoccerSum HuggingFace repository](https://huggingface.co/SimulaMet-HOST/SoccerSum)
 
 4. Place the weights in the `weights` folder. Adjust paths in `main.py`.
 
@@ -53,9 +51,9 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
 - Progress is shown on the GUI sidebar.
 
 
-## Paper Information and Citations
+## Citations
 
-For citing the research associated with this software, please use the following BibTeX entries:
+Please cite our research using the following BibTeX entries:
 
 <pre><code>
 @incollection{Houshmand_MMSYS_ODS,
@@ -89,5 +87,5 @@ For citing the research associated with this software, please use the following 
 }
 </code></pre>
 
-Additionally, if you use this software in your research, please cite it using the metadata from the `CITATION.cff` file provided in the root directory of this repository.
+You can refer to the `CITATION.cff` file provided in the root directory if you use the software in this repository.
 
