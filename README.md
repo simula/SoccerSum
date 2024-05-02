@@ -55,6 +55,8 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
 
 ## Paper Information and Citations
 
+For citing the research associated with this software, please use the following BibTeX entries:
+
 <pre><code>
 @incollection{Houshmand_MMSYS_ODS,
   author = {Houshmand Sarkhoosh, Mehdi and Midoglu, Cise and Shafiee Sabet, Saeed and Halvorsen, P{\aa}l},
@@ -86,3 +88,6 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
   doi = {10.1145/3625468.3652197}
 }
 </code></pre>
+
+Additionally, if you use this software in your research, please cite it using the metadata from the `CITATION.cff` file provided in the root directory of this repository.
+
