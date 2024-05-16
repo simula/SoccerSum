@@ -1,5 +1,7 @@
 # SoccerSum
 
+The rapid advancement of technology has been revolutionizing the field of sports media, where there is a growing need for sophisticated data processing methods. Current methodologies for extracting information from soccer broadcast videos to generate game highlights and summaries for social media are predominantly manual and rely heavily on text-based NLP techniques, overlooking the rich visual and auditory information available. In response to this challenge, our research introduces SoccerSum, a tool that innovates in the field by integrating computer vision, audio analysis with advanced language models like GPT-4. This multimodal approach enables automated, enriched content summarization, including detection of players and key field elements, thereby enhancing the metadata used in summarization algorithms. SoccerSum uniquely combines textual and visual data, offering a comprehensive solution for generating accurate, platform-specific content. This development represents a significant advancement in automated, data-driven sports media dissemination, and sets a new benchmark in the realm of soccer information extraction. A video of the demo can be found here: [Demonstration Video](https://youtu.be/za4VIi2ARXY).
+
 ## Source Code
 - **Repository**: [SoccerSum GitHub](https://github.com/simula/SoccerSum)
 - **Programming Languages**: Python, JavaScript, HTML, CSS, AJAX
@@ -11,6 +13,7 @@
 ## Dataset
 The SoccerSum dataset was curated by capturing and annotating soccer videos from the Norwegian Eliteserien league. This collection spans three years, covering 2021, 2022, and 2023. It comprises 750 frames from 41 unique sequences, with 4 to 40 frames per sequence, carefully chosen to represent a diverse selection of scenarios encountered in professional soccer games.
 - **Zenodo Record**: [SoccerSum dataset on Zenodo](https://zenodo.org/records/10612084)
+- **Simula Dataset Page**: [Link to page](https://datasets.simula.no/soccersum/)
 
 ## Hardware Requirements
 - **System Tested On**: Linux
@@ -50,6 +53,8 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
 - The system processes a 30-second clip in about 1 minute; longer clips take more time.
 - Progress is shown on the GUI sidebar.
 
+## Acknowledgements
+This research was partly funded by the Research Council of Norway, project number 346671 ([AI-storyteller](https://prosjektbanken.forskningsradet.no/project/FORISS/346671)). 
 
 ## Citations
 
