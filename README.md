@@ -1,8 +1,12 @@
 # SoccerSum
 
-| Zenodo | Paper | Paper | Hugging Face | Build | Tests | Coverage |
-| :---: | :----: | :------: | :----: | :-------: | :----------: | :----------: |
-| [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10612084.svg)](https://doi.org/10.5281/zenodo.10612084) | [![Demonstration Paper](https://img.shields.io/badge/ACM-Demonstration%20paper-red)](https://doi.org/10.1145/3625468.3652197) | [![Dataset Paper](https://img.shields.io/badge/ACM-Dataset%20paper-green)](https://doi.org/10.1145/3625468.3652180) | [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model%20Card-yellow)](https://huggingface.co/SimulaMet-HOST/SoccerSum) | [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]() | [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)]() | [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)]() |
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10612084.svg)](https://doi.org/10.5281/zenodo.10612084)
+[![Demonstration Paper](https://img.shields.io/badge/ACM-Demonstration%20paper-red)](https://doi.org/10.1145/3625468.3652197)
+[![Dataset Paper](https://img.shields.io/badge/ACM-Dataset%20paper-green)](https://doi.org/10.1145/3625468.3652180)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model%20Card-yellow)](https://huggingface.co/SimulaMet-HOST/SoccerSum)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()
+[![Tests](https://img.shields.io/badge/tests-passing-brightgreen)]()
+[![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)]()
 
 
 ## Abstract
