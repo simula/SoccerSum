@@ -76,7 +76,7 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
 
 ## Acknowledgements
 
-### $\color{navy}{This\ research\ was\ partly\ funded\ by\ the\ Research\ Council\ of\ Norway\,\ project\ number\ 346671.\ }$ ([AI-storyteller](https://prosjektbanken.forskningsradet.no/project/FORISS/346671)). 
+### $\color{black}{This\ research\ was\ partly\ funded\ by\ the\ Research\ Council\ of\ Norway\,\ project\ number\ 346671.\ }$ ([AI-storyteller](https://prosjektbanken.forskningsradet.no/project/FORISS/346671)). 
 
 
 ## Citations
