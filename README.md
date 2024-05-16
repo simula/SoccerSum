@@ -1,4 +1,11 @@
 # SoccerSum
+
+| Zenodo | Paper | Paper | Hugging Face | Build | Tests | Coverage |
+| :---: | :----: | :------: | :----: | :-------: | :----------: | :----------: |
+| [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10612084.svg)](https://doi.org/10.5281/zenodo.10612084) | [![Demonstration Paper](https://img.shields.io/badge/ACM-Demonstration%20paper-red)](https://doi.org/10.1145/3625468.3652197) | [![Dataset Paper](https://img.shields.io/badge/ACM-Dataset%20paper-green)](https://doi.org/10.1145/3625468.3652180) | [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-Model%20Card-yellow)](https://huggingface.co/SimulaMet-HOST/SoccerSum) | [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]() | [![Tests](https://img.shields.io/badge/tests-passing-brightgreen)]() | [![Coverage](https://img.shields.io/badge/coverage-90%25-brightgreen)]() |
+
+
+## Abstract
 The rapid advancement of technology has been revolutionizing the field of sports media, where there is a growing need for sophisticated data processing methods. Current methodologies for extracting information from soccer broadcast videos to generate game highlights and summaries for social media are predominantly manual and rely heavily on text-based NLP techniques, overlooking the rich visual and auditory information available. In response to this challenge, our research introduces SoccerSum, a tool that innovates in the field by integrating computer vision, audio analysis with advanced language models like GPT-4. This multimodal approach enables automated, enriched content summarization, including detection of players and key field elements, thereby enhancing the metadata used in summarization algorithms. SoccerSum uniquely combines textual and visual data, offering a comprehensive solution for generating accurate, platform-specific content. This development represents a significant advancement in automated, data-driven sports media dissemination, and sets a new benchmark in the realm of soccer information extraction. A video of the demo can be found here: [Demonstration Video](https://youtu.be/za4VIi2ARXY).
 
 ## Dataset
@@ -7,6 +14,8 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
 - **Simula Dataset Page**: [Link to page](https://datasets.simula.no/soccersum/)
 
 
+> [!TIP]
+> How to use SoccerSum?
 
 
 ## Source Code
@@ -55,12 +64,26 @@ The SoccerSum dataset was curated by capturing and annotating soccer videos from
 - The system processes a 30-second clip in about 1 minute; longer clips take more time.
 - Progress is shown on the GUI sidebar.
 
+
+#### Video
+<div align="center">
+  <img src="https://github.com/simula/SoccerSum/blob/main/img/demonstration-video.gif?raw=true" alt="SoccerSum Demonstration" style="max-width: 100%;">
+</div>
+
+
+
+
+
 ## Acknowledgements
-This research was partly funded by the Research Council of Norway, project number 346671 ([AI-storyteller](https://prosjektbanken.forskningsradet.no/project/FORISS/346671)). 
+
+### $\color{navy}{This\ research\ was\ partly\ funded\ by\ the\ Research\ Council\ of\ Norway\,\ project\ number\ 346671.\ }$ ([AI-storyteller](https://prosjektbanken.forskningsradet.no/project/FORISS/346671)). 
+
 
 ## Citations
+> [!IMPORTANT]
+> Please cite our research using the following BibTeX entries:
 
-Please cite our research using the following BibTeX entries:
+
 
 <pre><code>
 @incollection{Houshmand_MMSYS_ODS,
@@ -94,5 +117,6 @@ Please cite our research using the following BibTeX entries:
 }
 </code></pre>
 
-You can refer to the `CITATION.cff` file provided in the root directory if you use the software in this repository.
+> [!CAUTION]
+> Please refer to the `CITATION.cff` file provided in the root directory if you use the software in this repository.
 
